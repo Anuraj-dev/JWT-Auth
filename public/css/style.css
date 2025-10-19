@@ -1,9 +1,29 @@
 /* Custom Styles for JWT Auth App */
 
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: "Inter", sans-serif;
   background-color: #f6f7f8;
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  max-height: 100vh;
 }
 
 /* Dark mode background */
@@ -11,52 +31,38 @@ body.dark {
   background-color: #101922;
 }
 
-/* Auth Pages Custom Styling */
+/* Toast Container */
+#toast-container {
+  pointer-events: none;
+}
+
+#toast-container > * {
+  pointer-events: all;
+}
+
+/* Form Input Styling */
 .form-input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-/* Profile Page Styles */
-.profile-banner {
-  background: linear-gradient(135deg, #137fec 0%, #0d5fb8 100%);
-  min-height: 200px;
-  position: relative;
+/* Toast Notification Styles */
+.flash-toast {
+  transform: translateX(400px);
+  opacity: 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
 }
 
-.profile-picture-wrapper {
-  display: inline-block;
-  border: 5px solid white;
-  border-radius: 50%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.profile-picture {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.profile-details {
-  padding: 20px 0;
-}
-
-.detail-item {
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.detail-item label {
-  display: block;
-  margin-bottom: 5px;
+/* Bootstrap Alert Styles (for flash.ejs and dashboard.ejs) */
+.alert {
+  border-radius: 10px;
+  border: none;
   font-weight: 500;
 }
 
-/* Card Hover Effects */
+/* Bootstrap Card Styles (for dashboard.ejs) */
 .card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -66,7 +72,7 @@ body.dark {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Button Styles */
+/* Bootstrap Button Styles (for dashboard.ejs) */
 .btn {
   font-weight: 500;
   padding: 10px 20px;
@@ -78,44 +84,7 @@ body.dark {
   transform: translateY(-2px);
 }
 
-/* Form Styles */
-.form-control,
-.form-select {
-  border-radius: 8px;
-  padding: 12px;
-  border: 2px solid #e0e0e0;
-  transition: border-color 0.3s ease;
-}
-
-.form-control:focus,
-.form-select:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-}
-
-/* Navbar Styles */
-.navbar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-brand {
-  font-weight: 600;
-  font-size: 1.5rem;
-}
-
-.nav-link {
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-/* Alert Styles */
-.alert {
-  border-radius: 10px;
-  border: none;
-  font-weight: 500;
-}
-
-/* Dashboard Cards */
+/* Dashboard Cards (for dashboard.ejs) */
 .bg-light {
   transition: all 0.3s ease;
 }
@@ -125,65 +94,13 @@ body.dark {
   transform: scale(1.05);
 }
 
-/* Badge Styles */
-.badge {
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-/* Responsive adjustments */
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .profile-banner {
-    min-height: 150px;
-  }
-
-  .profile-picture {
-    width: 120px;
-    height: 120px;
-  }
-
   .card-body {
     padding: 2rem !important;
   }
 }
 
-/* Animation for flash messages */
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.alert {
-  animation: slideIn 0.3s ease-out;
-}
-
-/* Utility classes */
-.text-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.shadow-soft {
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-}
-
-/* Toast Notification Styles */
-.flash-toast {
-  transform: translateX(400px);
-  opacity: 0;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-}
-
-/* Toast container responsive */
 @media (max-width: 640px) {
   #toast-container {
     left: 1rem;

@@ -8,15 +8,14 @@
   }
 </style>
 
-<div class="flex flex-col min-h-screen">
-  <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="w-full max-w-md space-y-8">
-      <div>
-        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Edit User</h2>
-        <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">Update user account information</p>
-      </div>
+<div class="h-full flex items-center justify-center px-4">
+  <div class="w-full max-w-md space-y-6">
+    <div>
+      <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Edit User</h2>
+      <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">Update user account information</p>
+    </div>
 
-      <form action="/admin/users/<%= user._id %>?_method=PUT" class="mt-8 space-y-6" method="POST">
+    <form action="/admin/users/<%= user._id %>?_method=PUT" class="space-y-5" method="POST">
         <div class="space-y-4 rounded-lg">
           <div>
             <label class="sr-only" for="name">Full name</label>
@@ -52,5 +51,4 @@
         </div>
       </form>
     </div>
-  </main>
-</div>
+  </div>
