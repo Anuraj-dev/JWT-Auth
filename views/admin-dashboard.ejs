@@ -1,0 +1,65 @@
+<% layout('base') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-body p-5 text-center">
+          <div class="mb-4">
+            <i class="fas fa-crown text-warning" style="font-size: 4rem"></i>
+          </div>
+          <h1 class="mb-3">Admin Dashboard</h1>
+          <% if (currentUser) { %>
+          <p class="lead text-muted mb-4">
+            Welcome, Administrator <%= currentUser.email %>!
+          </p>
+          <% } %>
+
+          <div class="alert alert-success" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            You have full administrative access to this application.
+          </div>
+
+          <div class="row mt-5">
+            <div class="col-md-4 mb-3">
+              <div class="p-4 bg-light rounded">
+                <i
+                  class="fas fa-users text-primary mb-3"
+                  style="font-size: 2rem"></i>
+                <h5>User Management</h5>
+                <p class="text-muted small">Manage all users</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="p-4 bg-light rounded">
+                <i
+                  class="fas fa-chart-line text-success mb-3"
+                  style="font-size: 2rem"></i>
+                <h5>Analytics</h5>
+                <p class="text-muted small">View system analytics</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="p-4 bg-light rounded">
+                <i
+                  class="fas fa-cogs text-warning mb-3"
+                  style="font-size: 2rem"></i>
+                <h5>System Settings</h5>
+                <p class="text-muted small">Configure application</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <a href="/" class="btn btn-primary me-2">
+              <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+            <a href="/profile" class="btn btn-outline-primary">
+              <i class="fas fa-user me-2"></i>My Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
