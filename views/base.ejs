@@ -17,11 +17,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- Bootstrap 5 CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet" />
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <script>
@@ -148,10 +143,17 @@
       <% } %>
     </div>
 
-    <main class="flex-1 overflow-y-auto"><%- body %></main>
+    <main class="flex-grow"><%- body %></main>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Footer -->
+    <footer
+      class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4">
+      <div class="container mx-auto text-center">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          © 2025 JWT Auth Pvt Limited. All Rights Reserved.
+        </p>
+      </div>
+    </footer>
 
     <!-- Toast Notification Script -->
     <script>
