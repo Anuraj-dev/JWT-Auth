@@ -1,104 +1,105 @@
 <% layout('base') %>
 
-<div class="h-full overflow-y-auto flex items-center justify-center px-4 py-6">
-  <div class="w-full max-w-2xl space-y-6">
-      <!-- Profile Header -->
-      <div class="text-center">
-        <div class="inline-block relative">
-          <img
-            src="https://ui-avatars.com/api/?name=<%= user.name %>&size=150&background=137fec&color=fff&bold=true"
-            alt="Profile Picture"
-            class="w-32 h-32 rounded-full border-4 border-primary shadow-lg" />
-          <div
-            class="absolute bottom-0 right-0 w-8 h-8 bg-green-500 rounded-full border-4 border-background-light dark:border-background-dark"></div>
-        </div>
-        <h1 class="mt-4 text-3xl font-bold text-gray-900 dark:text-white">
-          <%= user.name %>
-        </h1>
-        <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">
-          <i class="fas fa-envelope mr-2"></i><%= user.email %>
-        </p>
-        <span
-          class="mt-3 inline-flex items-center px-4 py-2 rounded-lg bg-primary/10 text-primary font-semibold">
-          <i class="fas fa-user-tag mr-2"></i>
-          <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
-        </span>
+<div class="container mx-auto px-4 py-6 max-w-3xl min-h-full">
+  <div class="space-y-6">
+    <!-- Profile Header -->
+    <div class="text-center">
+      <div class="inline-block relative">
+        <img
+          src="https://ui-avatars.com/api/?name=<%= user.name %>&size=128&background=137fec&color=fff&bold=true"
+          alt="Profile Picture"
+          class="w-24 h-24 rounded-full border-2 border-primary shadow-sm" />
+        <div
+          class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"></div>
       </div>
+      <h1 class="mt-3 text-2xl font-bold text-gray-900 dark:text-white">
+        <%= user.name %>
+      </h1>
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <i class="fas fa-envelope mr-1.5 text-xs"></i><%= user.email %>
+      </p>
+      <span
+        class="mt-2 inline-flex items-center px-3 py-1 rounded-md bg-primary/10 text-primary text-sm font-medium">
+        <i class="fas fa-user-tag mr-1.5 text-xs"></i>
+        <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
+      </span>
+    </div>
 
-      <!-- Account Information Card -->
+    <!-- Account Information Card -->
+    <div
+      class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
       <div
-        class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="px-6 py-5 bg-gradient-to-r from-primary to-blue-600">
-          <h2 class="text-xl font-bold text-white flex items-center">
-            <i class="fas fa-info-circle mr-3"></i>
-            Account Information
-          </h2>
+        class="px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700">
+        <h2
+          class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+          <i class="fas fa-info-circle mr-2 text-primary text-sm"></i>
+          Account Information
+        </h2>
+      </div>
+      <div class="p-4 space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md">
+            <label
+              class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+              User ID
+            </label>
+            <p
+              class="text-sm font-medium text-gray-900 dark:text-white break-all">
+              <%= user.id %>
+            </p>
+          </div>
+          <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md">
+            <label
+              class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+              Account Type
+            </label>
+            <p
+              class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+              <%= user.role %>
+            </p>
+          </div>
         </div>
-        <div class="p-6 space-y-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-              <label
-                class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                User ID
-              </label>
-              <p
-                class="text-base font-semibold text-gray-900 dark:text-white break-all">
-                <%= user.id %>
-              </p>
-            </div>
-            <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-              <label
-                class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                Account Type
-              </label>
-              <p
-                class="text-base font-semibold text-gray-900 dark:text-white capitalize">
-                <%= user.role %>
-              </p>
-            </div>
-          </div>
-          <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-            <label
-              class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-              Email Address
-            </label>
-            <p class="text-base font-semibold text-gray-900 dark:text-white">
-              <%= user.email %>
-            </p>
-          </div>
-          <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-            <label
-              class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-              Full Name
-            </label>
-            <p class="text-base font-semibold text-gray-900 dark:text-white">
-              <%= user.name %>
-            </p>
-          </div>
+        <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md">
+          <label
+            class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+            Email Address
+          </label>
+          <p class="text-sm font-medium text-gray-900 dark:text-white">
+            <%= user.email %>
+          </p>
+        </div>
+        <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md">
+          <label
+            class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+            Full Name
+          </label>
+          <p class="text-sm font-medium text-gray-900 dark:text-white">
+            <%= user.name %>
+          </p>
         </div>
       </div>
+    </div>
 
-      <!-- Action Buttons -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a
-          href="/profile/edit"
-          class="flex items-center justify-center px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-all">
-          <i class="fas fa-edit mr-2"></i>
-          Edit Profile
-        </a>
-        <a
-          href="/logout"
-          class="flex items-center justify-center px-6 py-3 rounded-lg border border-transparent bg-primary text-white font-semibold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-all">
-          <i class="fas fa-sign-out-alt mr-2"></i>
-          Logout
-        </a>
-        <button
-          onclick="document.getElementById('deleteModal').classList.remove('hidden')"
-          class="flex items-center justify-center px-6 py-3 rounded-lg border border-transparent bg-red-600 text-white font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-all">
-          <i class="fas fa-trash-alt mr-2"></i>
-          Delete Account
-        </button>
-      </div>
+    <!-- Action Buttons -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <a
+        href="/profile/edit"
+        class="flex items-center justify-center px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors duration-200">
+        <i class="fas fa-edit mr-2 text-xs"></i>
+        Edit Profile
+      </a>
+      <a
+        href="/logout"
+        class="flex items-center justify-center px-4 py-2 rounded-md bg-primary text-white text-sm font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-200">
+        <i class="fas fa-sign-out-alt mr-2 text-xs"></i>
+        Logout
+      </a>
+      <button
+        onclick="document.getElementById('deleteModal').classList.remove('hidden')"
+        class="flex items-center justify-center px-4 py-2 rounded-md border border-red-300 dark:border-red-700 bg-white dark:bg-gray-700 text-red-600 dark:text-red-500 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-200">
+        <i class="fas fa-trash-alt mr-2 text-xs"></i>
+        Delete Account
+      </button>
     </div>
   </div>
 </div>
@@ -108,24 +109,24 @@
   id="deleteModal"
   class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
   <div
-    class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full p-6 transform transition-all">
+    class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-sm w-full p-5 transform transition-all">
     <div class="text-center">
       <div
-        class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
+        class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/30 mb-3">
         <i
-          class="fas fa-exclamation-triangle text-3xl text-red-600 dark:text-red-500"></i>
+          class="fas fa-exclamation-triangle text-xl text-red-600 dark:text-red-500"></i>
       </div>
-      <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
         Delete Account
       </h3>
-      <p class="text-gray-600 dark:text-gray-400 mb-6">
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-5">
         Are you sure you want to delete your account? This action cannot be
         undone and all your data will be permanently removed.
       </p>
-      <div class="flex gap-3">
+      <div class="flex gap-2">
         <button
           onclick="document.getElementById('deleteModal').classList.add('hidden')"
-          class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all">
+          class="flex-1 px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors">
           Cancel
         </button>
         <form
@@ -134,7 +135,7 @@
           class="flex-1">
           <button
             type="submit"
-            class="w-full px-4 py-2 rounded-lg border border-transparent bg-red-600 text-white font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all">
+            class="w-full px-4 py-2 rounded-md bg-red-600 text-white text-sm font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-200">
             Delete
           </button>
         </form>

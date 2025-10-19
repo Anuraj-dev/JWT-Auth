@@ -1,96 +1,108 @@
 <% layout('base') %>
 
-<style>
-  .form-input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-</style>
-
-<div class="h-full flex items-center justify-center px-4">
-  <div class="w-full max-w-md space-y-6">
-    <div>
-      <h2
-        class="text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+<div class="min-h-full py-8 px-4 flex items-center justify-center">
+  <div
+    class="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+    <div class="text-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
         Add New User
-      </h2>
-      <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+      </h1>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
         Create a new user account
       </p>
     </div>
-    <form action="/admin/users" class="space-y-5" method="POST">
-      <div class="space-y-4 rounded-lg">
-        <div>
-          <label class="sr-only" for="name">Full name</label>
-          <input
-            class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            id="name"
-            name="name"
-            placeholder="Full name"
-            required
-            type="text" />
-        </div>
-        <div>
-          <label class="sr-only" for="email">Email address</label>
-          <input
-            autocomplete="email"
-            class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            id="email"
-            name="email"
-            placeholder="Email address"
-            required
-            type="email" />
-        </div>
-        <div>
-          <label class="sr-only" for="password">Password</label>
-          <input
-            autocomplete="new-password"
-            class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            id="password"
-            name="password"
-            placeholder="Password"
-            required
-            minlength="6"
-            type="password" />
-        </div>
-        <div>
-          <label class="sr-only" for="confirmPassword">Confirm password</label>
-          <input
-            autocomplete="new-password"
-            class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirm password"
-            required
-            minlength="6"
-            type="password" />
-        </div>
-        <div>
-          <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-            for="role"
-            >User Role</label
-          >
-          <select
-            class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            id="role"
-            name="role"
-            required>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
+
+    <form action="/admin/users" class="space-y-4" method="POST">
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          for="name">
+          Full Name
+        </label>
+        <input
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          id="name"
+          name="name"
+          placeholder="John Doe"
+          required
+          type="text" />
       </div>
-      <div class="flex gap-3">
+
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          for="email">
+          Email Address
+        </label>
+        <input
+          autocomplete="email"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+          type="email" />
+      </div>
+
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          for="password">
+          Password
+        </label>
+        <input
+          autocomplete="new-password"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          id="password"
+          name="password"
+          placeholder="Minimum 6 characters"
+          required
+          minlength="6"
+          type="password" />
+      </div>
+
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          for="confirmPassword">
+          Confirm Password
+        </label>
+        <input
+          autocomplete="new-password"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="Re-enter password"
+          required
+          minlength="6"
+          type="password" />
+      </div>
+
+      <div>
+        <label
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          for="role">
+          User Role
+        </label>
+        <select
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          id="role"
+          name="role"
+          required>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <div class="flex gap-2 pt-2">
         <button
-          class="group relative flex flex-1 justify-center rounded-lg border border-transparent bg-primary py-3 px-4 text-sm font-semibold text-white hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark"
+          class="flex-1 py-2 px-4 text-sm font-semibold text-white bg-primary rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-200"
           type="submit">
           Create User
         </button>
         <a
           href="/admin/dashboard"
-          class="group relative flex flex-1 justify-center rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent py-3 px-4 text-sm font-semibold text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark">
+          class="flex-1 py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-center hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors duration-200">
           Cancel
         </a>
       </div>

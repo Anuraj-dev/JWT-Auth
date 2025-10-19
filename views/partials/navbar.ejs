@@ -1,9 +1,9 @@
 <header
-  class="fixed top-0 left-0 right-0 bg-white dark:bg-background-dark border-b border-gray-200 dark:border-gray-700 z-50">
-  <div class="container mx-auto flex items-center justify-between p-4">
+  class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm sticky top-0 z-40">
+  <div class="container mx-auto flex items-center justify-between px-4 py-3">
     <div class="flex items-center gap-2">
       <svg
-        class="h-8 w-8 text-primary"
+        class="h-7 w-7 text-primary"
         fill="none"
         viewBox="0 0 48 48"
         xmlns="http://www.w3.org/2000/svg">
@@ -18,32 +18,39 @@
           </clipPath>
         </defs>
       </svg>
-      <a href="/" class="text-xl font-bold hover:text-primary">JWT Auth</a>
-    </div>
-    <nav class="flex items-center gap-6">
-      <% if (currentUser) { %>
-      <!-- Dashboard route removed: users go directly to profile -->
       <a
-        class="text-sm font-medium hover:text-primary hidden md:inline"
-        href="/profile"
-        >Profile</a
-      >
+        href="/"
+        class="text-lg font-bold text-gray-900 dark:text-white hover:text-primary transition-colors">
+        JWT Auth
+      </a>
+    </div>
+    <nav class="flex items-center gap-4">
+      <% if (currentUser) { %>
+      <a
+        class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary transition-colors hidden md:inline"
+        href="/profile">
+        Profile
+      </a>
       <% if (currentUser.role === 'admin') { %>
       <a
-        class="text-sm font-medium hover:text-primary hidden md:inline"
-        href="/admin/dashboard"
-        >Admin Panel</a
-      >
+        class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary transition-colors hidden md:inline"
+        href="/admin/dashboard">
+        Admin Panel
+      </a>
       <% } %>
       <a
-        class="rounded bg-red-500 px-4 py-2 text-sm font-bold text-white hover:bg-red-600"
+        class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-red-600 dark:text-red-500 bg-red-50 dark:bg-red-900/20 rounded-md hover:bg-red-100 dark:hover:bg-red-900/30 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-200"
         href="/logout">
-        <i class="fas fa-sign-out-alt me-1"></i>Logout
+        <i class="fas fa-sign-out-alt mr-1.5 text-xs"></i>Logout
       </a>
       <% } else { %>
-      <a class="text-sm font-medium hover:text-primary" href="/login">Login</a>
       <a
-        class="rounded bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-opacity-90"
+        class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
+        href="/login">
+        Login
+      </a>
+      <a
+        class="px-3 py-1.5 text-sm font-semibold text-white bg-primary rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-200"
         href="/register">
         Sign Up
       </a>
