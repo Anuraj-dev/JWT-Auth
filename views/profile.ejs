@@ -1,72 +1,164 @@
 <% layout('base') %>
 
-<div class="profile-container">
-  <!-- Banner Section -->
-  <div class="profile-banner">
-    <div class="container py-5">
-      <h1 class="text-white">Profile</h1>
-    </div>
-  </div>
+<div class="flex flex-col min-h-screen">
+  <main
+    class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-2xl space-y-8">
+      <!-- Profile Header -->
+      <div class="text-center">
+        <div class="inline-block relative">
+          <img
+            src="https://ui-avatars.com/api/?name=<%= user.name %>&size=150&background=137fec&color=fff&bold=true"
+            alt="Profile Picture"
+            class="w-32 h-32 rounded-full border-4 border-primary shadow-lg" />
+          <div
+            class="absolute bottom-0 right-0 w-8 h-8 bg-green-500 rounded-full border-4 border-background-light dark:border-background-dark"></div>
+        </div>
+        <h1 class="mt-4 text-3xl font-bold text-gray-900 dark:text-white">
+          <%= user.name %>
+        </h1>
+        <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">
+          <i class="fas fa-envelope mr-2"></i><%= user.email %>
+        </p>
+        <span
+          class="mt-3 inline-flex items-center px-4 py-2 rounded-lg bg-primary/10 text-primary font-semibold">
+          <i class="fas fa-user-tag mr-2"></i>
+          <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
+        </span>
+      </div>
 
-  <!-- Profile Content -->
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card shadow-lg border-0">
-          <div class="card-body p-5">
-            <!-- Profile Picture -->
-            <div class="text-center mb-4" style="margin-top: -80px">
-              <div class="profile-picture-wrapper">
-                <img
-                  src="https://ui-avatars.com/api/?name=<%= user.name %>&size=150&background=6366f1&color=fff&bold=true"
-                  alt="Profile Picture"
-                  class="profile-picture" />
-              </div>
-            </div>
-
-            <!-- User Info -->
-            <div class="text-center mb-4">
-              <h2 class="mb-2"><%= user.name %></h2>
-              <p class="text-muted mb-3">
-                <i class="fas fa-envelope me-2"></i><%= user.email %>
+      <!-- Account Information Card -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div class="px-6 py-5 bg-gradient-to-r from-primary to-blue-600">
+          <h2 class="text-xl font-bold text-white flex items-center">
+            <i class="fas fa-info-circle mr-3"></i>
+            Account Information
+          </h2>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+              <label
+                class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                User ID
+              </label>
+              <p
+                class="text-base font-semibold text-gray-900 dark:text-white break-all">
+                <%= user.id %>
               </p>
-              <span class="badge bg-primary px-3 py-2">
-                <i class="fas fa-user-tag me-1"></i>
-                <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
-              </span>
             </div>
-
-            <!-- Profile Details -->
-            <div class="profile-details mt-5">
-              <h4 class="mb-4">Account Information</h4>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <div class="detail-item">
-                    <label class="text-muted small">User ID</label>
-                    <p class="mb-0 fw-semibold"><%= user.id %></p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="detail-item">
-                    <label class="text-muted small">Account Type</label>
-                    <p class="mb-0 fw-semibold"><%= user.role %></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="d-flex gap-3 mt-5 justify-content-center">
-              <button class="btn btn-outline-primary">
-                <i class="fas fa-edit me-2"></i>Edit Page
-              </button>
-              <a href="/logout" class="btn btn-danger">
-                <i class="fas fa-sign-out-alt me-2"></i>Logout
-              </a>
+            <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+              <label
+                class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                Account Type
+              </label>
+              <p
+                class="text-base font-semibold text-gray-900 dark:text-white capitalize">
+                <%= user.role %>
+              </p>
             </div>
           </div>
+          <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+            <label
+              class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+              Email Address
+            </label>
+            <p class="text-base font-semibold text-gray-900 dark:text-white">
+              <%= user.email %>
+            </p>
+          </div>
+          <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+            <label
+              class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+              Full Name
+            </label>
+            <p class="text-base font-semibold text-gray-900 dark:text-white">
+              <%= user.name %>
+            </p>
+          </div>
         </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a
+          href="/profile/edit"
+          class="flex items-center justify-center px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-all">
+          <i class="fas fa-edit mr-2"></i>
+          Edit Profile
+        </a>
+        <a
+          href="/logout"
+          class="flex items-center justify-center px-6 py-3 rounded-lg border border-transparent bg-primary text-white font-semibold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-all">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          Logout
+        </a>
+        <button
+          onclick="document.getElementById('deleteModal').classList.remove('hidden')"
+          class="flex items-center justify-center px-6 py-3 rounded-lg border border-transparent bg-red-600 text-white font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-all">
+          <i class="fas fa-trash-alt mr-2"></i>
+          Delete Account
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div
+  id="deleteModal"
+  class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+  <div
+    class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full p-6 transform transition-all">
+    <div class="text-center">
+      <div
+        class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
+        <i
+          class="fas fa-exclamation-triangle text-3xl text-red-600 dark:text-red-500"></i>
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+        Delete Account
+      </h3>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">
+        Are you sure you want to delete your account? This action cannot be
+        undone and all your data will be permanently removed.
+      </p>
+      <div class="flex gap-3">
+        <button
+          onclick="document.getElementById('deleteModal').classList.add('hidden')"
+          class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all">
+          Cancel
+        </button>
+        <form
+          action="/profile/delete?_method=DELETE"
+          method="POST"
+          class="flex-1">
+          <button
+            type="submit"
+            class="w-full px-4 py-2 rounded-lg border border-transparent bg-red-600 text-white font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all">
+            Delete
+          </button>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  // Close modal on outside click
+  document
+    .getElementById("deleteModal")
+    .addEventListener("click", function (e) {
+      if (e.target === this) {
+        this.classList.add("hidden");
+      }
+    });
+
+  // Close modal on Escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      document.getElementById("deleteModal").classList.add("hidden");
+    }
+  });
+</script>

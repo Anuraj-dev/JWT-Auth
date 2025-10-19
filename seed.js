@@ -19,14 +19,11 @@ const createAdmin = async () => {
     const adminEmail = "admin@example.com";
     const adminPassword = "admin123";
 
-    // Manually hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(adminPassword, salt);
-
+    // DO NOT manually hash - let the pre-save hook do it
     const adminUser = new User({
       name: "Admin",
       email: adminEmail,
-      password: hashedPassword,
+      password: adminPassword, // Plain password - will be hashed by pre-save hook
       role: "admin",
     });
 

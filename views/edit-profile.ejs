@@ -1,0 +1,107 @@
+<% layout('base') %>
+
+<style>
+  .form-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<div class="flex flex-col min-h-screen">
+  <main
+    class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-8">
+      <div>
+        <h2
+          class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+          Edit Your Profile
+        </h2>
+        <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+          Update your account information
+        </p>
+      </div>
+      <form
+        action="/profile/edit?_method=PUT"
+        class="mt-8 space-y-6"
+        method="POST">
+        <div class="space-y-4 rounded-lg">
+          <div>
+            <label class="sr-only" for="name">Full name</label>
+            <input
+              class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              id="name"
+              name="name"
+              placeholder="Full name"
+              required
+              type="text"
+              value="<%= user.name %>" />
+          </div>
+          <div>
+            <label class="sr-only" for="email">Email address</label>
+            <input
+              autocomplete="email"
+              class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              id="email"
+              name="email"
+              placeholder="Email address"
+              required
+              type="email"
+              value="<%= user.email %>" />
+          </div>
+          <div class="pt-4">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+              Leave password fields blank to keep current password
+            </p>
+            <label class="sr-only" for="currentPassword"
+              >Current Password</label
+            >
+            <input
+              autocomplete="current-password"
+              class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              id="currentPassword"
+              name="currentPassword"
+              placeholder="Current password (optional)"
+              type="password" />
+          </div>
+          <div>
+            <label class="sr-only" for="newPassword">New Password</label>
+            <input
+              autocomplete="new-password"
+              class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              id="newPassword"
+              name="newPassword"
+              placeholder="New password (optional)"
+              minlength="6"
+              type="password" />
+          </div>
+          <div>
+            <label class="sr-only" for="confirmNewPassword"
+              >Confirm New Password</label
+            >
+            <input
+              autocomplete="new-password"
+              class="form-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              id="confirmNewPassword"
+              name="confirmNewPassword"
+              placeholder="Confirm new password (optional)"
+              minlength="6"
+              type="password" />
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <button
+            class="group relative flex flex-1 justify-center rounded-lg border border-transparent bg-primary py-3 px-4 text-sm font-semibold text-white hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark"
+            type="submit">
+            Save Changes
+          </button>
+          <a
+            href="/profile"
+            class="group relative flex flex-1 justify-center rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent py-3 px-4 text-sm font-semibold text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

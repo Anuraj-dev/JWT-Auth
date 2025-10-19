@@ -1,38 +1,173 @@
 <% layout('base') %>
 
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-6">
-      <div class="card shadow-lg border-0">
-        <div class="card-body p-5 text-center">
-          <div class="mb-4">
-            <i
-              class="fas fa-exclamation-triangle text-danger"
-              style="font-size: 5rem"></i>
+<div class="min-h-screen flex items-center justify-center px-4 py-12">
+  <div class="max-w-2xl w-full text-center">
+    <!-- Animated Error Icon -->
+    <div class="mb-8 relative inline-block">
+      <div class="absolute inset-0 animate-ping opacity-20">
+        <div class="w-32 h-32 mx-auto rounded-full bg-red-500"></div>
+      </div>
+      <div class="relative">
+        <% if (statusCode === 404) { %>
+        <div class="text-8xl mb-4">🚀</div>
+        <% } else if (statusCode === 403) { %>
+        <div class="text-8xl mb-4">🚫</div>
+        <% } else if (statusCode === 401) { %>
+        <div class="text-8xl mb-4">🔒</div>
+        <% } else if (statusCode === 500) { %>
+        <div class="text-8xl mb-4">💥</div>
+        <% } else if (statusCode >= 400 && statusCode < 500) { %>
+        <div class="text-8xl mb-4">🤔</div>
+        <% } else { %>
+        <div class="text-8xl mb-4">⚠️</div>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Status Code Display -->
+    <div class="mb-6">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <% const digits = String(statusCode).split(''); %> <%
+        digits.forEach(function(digit) { %>
+        <div class="relative">
+          <div
+            class="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600 transform hover:scale-110 transition-transform duration-300">
+            <%= digit %>
           </div>
-          <h1 class="mb-3">Oops! Something went wrong</h1>
-          <p class="text-muted lead mb-4">
-            We encountered an error processing your request.
+          <div
+            class="absolute inset-0 text-7xl md:text-8xl font-black text-primary opacity-20 blur-xl">
+            <%= digit %>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+
+    <!-- Error Title -->
+    <h1
+      class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <% if (statusCode === 404) { %> Oops! You've Wandered Off the Map! <% }
+      else if (statusCode === 403) { %> Whoa There! That's Off Limits! <% } else
+      if (statusCode === 401) { %> Hey! You Need a Key for That! <% } else if
+      (statusCode === 500) { %> Houston, We Have a Problem! <% } else if
+      (statusCode === 400) { %> Hmm... Something's Not Right Here! <% } else {
+      %> Uh-Oh! Something Went Wrong! <% } %>
+    </h1>
+
+    <!-- Error Message from Backend -->
+    <div
+      class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded-lg p-6 mb-8 text-left">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <i class="fas fa-exclamation-circle text-2xl text-red-500"></i>
+        </div>
+        <div class="ml-4 flex-1">
+          <h3 class="text-lg font-semibold text-red-800 dark:text-red-300 mb-2">
+            What Happened?
+          </h3>
+          <p class="text-red-700 dark:text-red-400 text-base leading-relaxed">
+            <%= message || 'An unexpected error occurred. Please try again
+            later.' %>
           </p>
-
-          <% if (typeof error !== 'undefined') { %>
-          <div class="alert alert-danger text-start" role="alert">
-            <strong>Error:</strong> <%= error %>
-          </div>
-          <% } %>
-
-          <div class="mt-4">
-            <a href="/" class="btn btn-primary me-2">
-              <i class="fas fa-home me-2"></i>Go Home
-            </a>
-            <a
-              href="javascript:history.back()"
-              class="btn btn-outline-secondary">
-              <i class="fas fa-arrow-left me-2"></i>Go Back
-            </a>
-          </div>
         </div>
       </div>
     </div>
+
+    <!-- Simplified Error Explanation -->
+    <div
+      class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8 text-left">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <i class="fas fa-lightbulb text-2xl text-blue-500"></i>
+        </div>
+        <div class="ml-4 flex-1">
+          <h3
+            class="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-2">
+            In Simple Terms:
+          </h3>
+          <p class="text-blue-700 dark:text-blue-400 text-base">
+            <% if (statusCode === 404) { %> The page you are looking for does
+            not exist. It might have been moved, deleted, or you may have
+            mistyped the URL. <% } else if (statusCode === 403) { %> You do not
+            have permission to access this resource. You might need to log in
+            with the right account or contact an administrator. <% } else if
+            (statusCode === 401) { %> You need to be logged in to view this
+            page. Please sign in and try again. <% } else if (statusCode ===
+            500) { %> Something broke on our server. Do not worry - it is not
+            your fault! Our team has been notified and we are working on fixing
+            it. <% } else if (statusCode === 400) { %> The information you sent
+            does not look quite right. Double-check your input and try again. <%
+            } else if (statusCode >= 400 && statusCode < 500) { %> There was a
+            problem with your request. Please check what you are trying to do
+            and try again. <% } else { %> Our server encountered an unexpected
+            error. We are working on resolving this issue as quickly as
+            possible. <% } %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <a
+        href="javascript:history.back()"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 transform hover:scale-105">
+        <i class="fas fa-arrow-left"></i>
+        Go Back
+      </a>
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all duration-200 transform hover:scale-105">
+        <i class="fas fa-home"></i>
+        Go to Homepage
+      </a>
+      <% if (statusCode === 401) { %>
+      <a
+        href="/login"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all duration-200 transform hover:scale-105">
+        <i class="fas fa-sign-in-alt"></i>
+        Login
+      </a>
+      <% } %>
+    </div>
+
+    <!-- Error Code Reference -->
+    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Error Code:
+        <span class="font-mono font-semibold"><%= statusCode %></span> <% if
+        (typeof stack !== 'undefined' && stack && process.env.NODE_ENV ===
+        'development') { %> |
+        <a
+          href="#details"
+          onclick="document.getElementById('stack-trace').classList.toggle('hidden')"
+          class="text-primary hover:underline cursor-pointer"
+          >View Technical Details</a
+        >
+        <% } %>
+      </p>
+
+      <% if (typeof stack !== 'undefined' && stack && process.env.NODE_ENV ===
+      'development') { %>
+      <div
+        id="stack-trace"
+        class="hidden mt-4 text-left bg-gray-900 text-green-400 p-4 rounded-lg overflow-auto max-h-64">
+        <pre class="text-xs font-mono"><%= stack %></pre>
+      </div>
+      <% } %>
+    </div>
   </div>
 </div>
+
+<style>
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  .animate-ping {
+    animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+</style>
