@@ -46,8 +46,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", UserSchema);
-
 //? MiddleWare
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
@@ -58,6 +56,8 @@ UserSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+const User = mongoose.model("User", UserSchema);
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -118,7 +118,7 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email | !password) {
+  if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
 
@@ -141,13 +141,14 @@ app.post("/login", async (req, res) => {
       },
     };
 
-    jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" }),
-      (err, token) => {
-        if (err) throw err;
-        console.log(`Registered token is:  ${token}`);
-      };
+    jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" }, (err, token) => {
+      if (err) throw err;
+      console.log(`Registered token is:  ${token}`);
+      res.json({ token, message: "Login successful" });
+    });
   } catch (err) {
     console.error(err.message);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
