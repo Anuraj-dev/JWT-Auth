@@ -1,9 +1,20 @@
 // seed.js
+require("dotenv").config();
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("./app");
 
-const dbUrl = "mongodb://localhost:27017/jwt-auth-db";
+if (!process.env.MONGO_URI) {
+  throw new Error("MONGO_URI environment variable is not set. Refusing to seed.");
+}
+if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
+  throw new Error(
+    "ADMIN_EMAIL and ADMIN_PASSWORD environment variables must be set. Refusing to seed."
+  );
+}
+
+const dbUrl = process.env.MONGO_URI;
 
 const createAdmin = async () => {
   try {
@@ -16,8 +27,8 @@ const createAdmin = async () => {
       return;
     }
 
-    const adminEmail = "admin@example.com";
-    const adminPassword = "admin123";
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
 
     // DO NOT manually hash - let the pre-save hook do it
     const adminUser = new User({

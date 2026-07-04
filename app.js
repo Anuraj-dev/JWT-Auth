@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
@@ -25,9 +27,19 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(methodOverride("_method"));
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET environment variable is not set. Refusing to start.");
+}
+if (!process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET environment variable is not set. Refusing to start.");
+}
+if (!process.env.MONGO_URI) {
+  throw new Error("MONGO_URI environment variable is not set. Refusing to start.");
+}
+
 app.use(
   session({
-    secret: "my-super-secret-session-key-change-this-in-production",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 }, // 7 days
@@ -43,9 +55,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const dbUrl = "mongodb://localhost:27017/jwt-auth-db";
-const JWT_SECRET =
-  "my-super-secret-authentication-string-agr-tod-sakteho-toh-tod-ke-dikhao";
+const dbUrl = process.env.MONGO_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 mongoose.set("strictQuery", true);
 
