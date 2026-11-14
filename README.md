@@ -1,63 +1,92 @@
-# JWT-Auth
+<h1 align="center">JWT-Auth</h1>
 
-A demo authentication system built with Express 5, EJS, and MongoDB, showcasing JWT-based session handling with role-based access control (RBAC).
+<p align="center">
+  A sign-in demo for Express 5 and MongoDB, with JWT sessions and an admin role.<br />
+  Users manage their own profile. Admins manage regular users from one dashboard.
+</p>
 
-## Features
+JWT-Auth shows how a small web app can keep people signed in with JSON Web Tokens. Visitors register, log in, change their name, email or password, or delete their account. Admins get a dashboard that lists every user and lets them create, edit or delete regular users.
 
-- User registration and login with hashed passwords (bcrypt)
-- JWT stored in an httpOnly cookie for web session authentication, plus a bearer-token API auth middleware
-- Role-based access control (`user` / `admin`)
-- Profile view, edit (name/email/password), and account deletion
-- Admin dashboard with full user CRUD (create, edit, delete users; admin accounts are protected from deletion/edit via the UI)
-- Flash messages for success/error feedback across the app
-- Custom error handling with dedicated error views
+The server renders its pages with EJS and stores users in MongoDB through Mongoose. It listens on port 8000. You provide the database URL and two secrets in a `.env` file. No third-party accounts or API keys are needed.
 
-## Tech stack
+## What you get
 
-- Node.js / Express 5
-- EJS + ejs-mate (layouts)
-- MongoDB / Mongoose
-- jsonwebtoken (JWT)
-- bcryptjs (password hashing)
-- express-session + connect-flash (flash messages)
-- dotenv (environment configuration)
+- **Sign-in in an httpOnly cookie.** Login signs a JWT with `JWT_SECRET` that expires after 7 days and stores it in a `token` cookie that page scripts cannot read. Every protected route verifies that cookie before it renders.
+- **Passwords stored as bcrypt hashes.** A Mongoose pre-save hook hashes each new or changed password with bcryptjs and a salt of 10 rounds. Sign-up, profile changes and the admin forms reject passwords shorter than 6 characters.
+- **Two roles checked on the server.** Each user is either `user` or `admin`, and the role is stored in the token. Every `/admin` route passes through an `authorizeAdmin` check that sends everyone else back to the home page.
+- **User management for admins.** The dashboard lists every user without password hashes. Admins create users with a chosen role, edit regular users' name, email, role or password, and delete them. Admin accounts can't be edited or deleted from the dashboard.
+- **A profile page for every user.** Users see their details, change their name, email or password, and delete their account. A password change needs the current password. Admin accounts can't delete themselves.
+- **Real PUT and DELETE from HTML forms.** Forms send a POST with `?_method=PUT` or `?_method=DELETE`, and method-override turns the request into that verb.
+- **Flash messages for every result.** Each action redirects with a success or error message, shown on the next page.
 
-## Setup
+## Running it
 
-1. Install dependencies:
+You need Node.js 18 or newer and a MongoDB server that `MONGO_URI` can reach. Run every command from the project root, because dotenv reads `.env` from the current directory.
 
-   ```bash
-   npm install
-   ```
+### Install dependencies
 
-2. Create a `.env` file in the project root (see `.env.example`):
+```sh
+npm install
+```
 
-   ```env
-   MONGO_URI=mongodb://localhost:27017/jwt-auth-db
-   JWT_SECRET=<a long random string>
-   SESSION_SECRET=<a different long random string>
-   ADMIN_EMAIL=admin@example.com
-   ADMIN_PASSWORD=<a strong password>
-   ```
+### Create the `.env` file
 
-   All of these variables are required — the app and seed script will throw and refuse to start if any are missing.
+```sh
+cp .env.example .env
+```
 
-3. Make sure MongoDB is running and reachable at `MONGO_URI`.
+Replace each placeholder value. [Configuration](#configuration) lists what each variable does.
 
-4. (Optional) Seed an initial admin account:
+### Create the first admin
 
-   ```bash
-   node seed.js
-   ```
+`seed.js` creates one admin account from `ADMIN_EMAIL` and `ADMIN_PASSWORD`. It does nothing if an admin already exists.
 
-5. Start the app:
+```sh
+node seed.js
+```
 
-   ```bash
-   node app.js
-   ```
+The script loads `app.js`, so it also starts the web server, and the process keeps running. Stop it with Ctrl+C before you start the app. The script prints the admin password, so change it after your first login.
 
-   The server listens on port 8000 by default.
+### Start the app
 
-## Security note
+```sh
+node app.js
+```
 
-Earlier commits in this repository's history contained a hardcoded JWT signing secret, a hardcoded session secret, and a hardcoded default admin email/password in `seed.js`. These have since been moved to environment variables, but the old values remain visible in the git history and should be treated as **publicly known**. If this app was ever deployed using those defaults, rotate `JWT_SECRET`, `SESSION_SECRET`, and the admin password immediately, and invalidate any JWTs/sessions issued with the old secret.
+Open http://localhost:8000. After you log in, admins land on `/admin/dashboard` and other users land on `/profile`.
+
+## Configuration
+
+The app refuses to start if `MONGO_URI`, `JWT_SECRET` or `SESSION_SECRET` is missing. The seed script refuses to run without `MONGO_URI`, `ADMIN_EMAIL` or `ADMIN_PASSWORD`.
+
+| Variable | Read by | Purpose |
+| --- | --- | --- |
+| `MONGO_URI` | app, seed | MongoDB connection string, for example `mongodb://localhost:27017/jwt-auth-db`. |
+| `JWT_SECRET` | app | Signs login tokens. Use a long random string. |
+| `SESSION_SECRET` | app | Signs the express-session cookie. Use a different random string. |
+| `ADMIN_EMAIL` | seed | Email for the admin account that `seed.js` creates. |
+| `ADMIN_PASSWORD` | seed | Password for that admin account. Use a strong one. |
+
+To generate a secret:
+
+```sh
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+The port is fixed at 8000. To change it, edit `app.listen(8000)` in `app.js`.
+
+## How it works
+
+Login checks the password with `bcrypt.compare`. On success, the server signs a token that holds the user's id, name, email and role, and sends it back in the `token` cookie.
+
+Each request reads that cookie and checks its signature and expiry. The role comes from the token, so the admin checks don't query the database.
+
+That has a consequence. A role change applies the next time that user logs in or saves their own profile. A demoted admin keeps dashboard access until the old token expires, up to 7 days.
+
+Flash messages live in the session. express-session uses its default in-memory store, so sessions don't survive a restart.
+
+## Security
+
+- Earlier commits had a hardcoded JWT secret, a hardcoded session secret and a seed admin password of `admin123`. Commit `82a0428` moved them into environment variables, but the old values stay in the git history, so treat them as public. If you ran an earlier version with those defaults, rotate `JWT_SECRET`, `SESSION_SECRET` and the admin password. Changing `JWT_SECRET` signs out everyone who holds a token.
+- `POST /register` accepts a `role` field, so anyone can register an admin account. Remove that field from the handler before you run the app anywhere other than your own machine.
+- The token and session cookies are not marked `Secure`. Set `secure: true` in `app.js` when you serve the app over HTTPS.
