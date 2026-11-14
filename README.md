@@ -90,3 +90,7 @@ Flash messages live in the session. express-session uses its default in-memory s
 - Earlier commits had a hardcoded JWT secret, a hardcoded session secret and a seed admin password of `admin123`. Commit `82a0428` moved them into environment variables, but the old values stay in the git history, so treat them as public. If you ran an earlier version with those defaults, rotate `JWT_SECRET`, `SESSION_SECRET` and the admin password. Changing `JWT_SECRET` signs out everyone who holds a token.
 - `POST /register` accepts a `role` field, so anyone can register an admin account. Remove that field from the handler before you run the app anywhere other than your own machine.
 - The token and session cookies are not marked `Secure`. Set `secure: true` in `app.js` when you serve the app over HTTPS.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
